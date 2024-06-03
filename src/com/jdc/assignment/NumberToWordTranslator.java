@@ -37,17 +37,27 @@ public class NumberToWordTranslator {
 	}
 
 	private String getUserInput() {
-		Scanner sc = new Scanner(System.in);
+		int amount = 0;
+		boolean isValid = false;
+		
+		do {
+			try {
+				Scanner sc = new Scanner(System.in);
+				System.out.print("Enter your amount : ");
+				amount = Integer.parseInt(sc.nextLine());
 
-		System.out.print("Enter your amount : ");
-		int amount = sc.nextInt();
+				if (amount > 0 && amount < 10000000) {
+					isValid = true;
+					sc.close();
+				} else {
+					System.out.println("The amount must be between 0 and 10,000,000 !!!\n");
+				}		
+			} catch (NumberFormatException e) {
+				System.out.println("The amount must be numeric only !!!\n");
+			}
 
-		while (amount <= 0 || amount >= 10000000) {
-			System.out.println("The amount must be between 0 and 10,000,000 !!!");
-			System.out.print("Enter your amount again : ");
-			amount = sc.nextInt();
-		}
-
+		} while (!isValid);
+		
 		return String.valueOf(amount);
 	}
 
